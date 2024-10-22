@@ -46,7 +46,7 @@ public class BotEventsHandler : BackgroundService
     {
         using var scope = _scopeFactory.CreateScope();
         var userService = scope.ServiceProvider.GetRequiredService<UserService>();
-        var user = await userService.GetUserByTelegramId(message!.Chat.Id);
+        var user = await userService.GetUserProfileByChatId(message!.Chat.Id);
 
         if (message.Text == "/start" || message.Text.StartsWith("/") || message.Text == "/")
         {
@@ -98,7 +98,7 @@ public class BotEventsHandler : BackgroundService
         var button = await buttonService.GetButton(long.Parse(callbackQuery.Data!));
 
         var userService = scope.ServiceProvider.GetRequiredService<UserService>();
-        var user = await userService.GetUserByTelegramId(callbackQuery.From.Id);
+        var user = await userService.GetUserProfileByChatId(callbackQuery.From.Id);
 
         if (button == null || user == null)
         {

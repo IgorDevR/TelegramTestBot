@@ -39,7 +39,7 @@ public class StartService
         var chatId = message.Chat.Id;
         var messageText = message.Text!;
 
-        var userProfile = await _userService.GetUserByTelegramId(chatId);
+        var userProfile = await _userService.GetUserProfileByChatId(chatId);
         var lastEvent = await _userEventsService.GetLastUserEvent(telegramId: chatId);
 
         if (messageText.StartsWith("/start") && userProfile == null)

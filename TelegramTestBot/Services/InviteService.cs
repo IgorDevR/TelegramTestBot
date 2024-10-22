@@ -22,7 +22,7 @@ public class InviteService
 
     public async Task CreateAndSendInviteByUserId(long chatId)
     {
-        var user = await _userService.GetUserByTelegramId(chatId);
+        var user = await _userService.GetUserProfileByChatId(chatId);
 
         if (user == null)
         {

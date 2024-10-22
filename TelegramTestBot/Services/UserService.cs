@@ -14,13 +14,6 @@ public class UserService
         _context = context;
     }
 
-    public async Task<UserProfile?> GetUserProfileByChatId(long chatId)
-    {
-        return await _context.Users.Where(u => u.TgId == chatId)
-            .Include(u => u.Invites)
-            .FirstOrDefaultAsync();
-    }
-
     public async Task<UserProfile?> GetUserProfileByUserId(long chatId)
     {
         return await _context.Users.Where(u => u.Id == chatId)
@@ -28,7 +21,7 @@ public class UserService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<UserProfile?> GetUserByTelegramId(long telegramId)
+    public async Task<UserProfile?> GetUserProfileByChatId(long telegramId)
     {
         return await _context.Users
             .Where(u => u.TgId == telegramId)
@@ -38,7 +31,7 @@ public class UserService
 
     public async Task<UserProfile> CheckAndCreateUser(Message message)
     {
-        var user = await GetUserByTelegramId(message.Chat.Id);
+        var user = await GetUserProfileByChatId(message.Chat.Id);
 
         if (user == null)
         {
